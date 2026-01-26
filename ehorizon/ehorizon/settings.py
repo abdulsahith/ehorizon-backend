@@ -80,11 +80,14 @@ WSGI_APPLICATION = 'ehorizon.wsgi.application'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Your Expo app's URL
     "http://localhost:8000",
-    "https://sahith.xyz"  ,# Your Django server URL
+    "https://sahith.xyz" ,# Your Django server URL
     "https://sixter.xyz",
     "http://localhost:3000",
-    "http://pitchadmin.sixter.xyz",
-    "http://localhost:5174"
+    "http://admin.sixter.xyz",
+    "http://localhost:5174",
+    "https://sahith.sixter.in",
+    "http://72.61.241.129:5000",
+    "http://ehoryzon.kongu.edu",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = False
@@ -92,14 +95,25 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ehorizon', 
+#         'USER': 'postgres',      
+#         'PASSWORD': 'Dharshini020@',  
+#         'HOST': 'localhost',   
+#         'PORT': '5432',        
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ehorizon', 
-        'USER': 'postgres',      
-        'PASSWORD': 'Dharshini020@',  
-        'HOST': 'localhost',   
-        'PORT': '5432',        
+        'NAME': 'ehorizon',
+        'USER': 'ehorizon_user',
+        'PASSWORD': 'sahith@020',
+        'HOST': '127.0.0.1',   # use IP to avoid peer auth surprises
+        'PORT': '5432',
     }
 }
 
@@ -128,9 +142,12 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "http://pitchadmin.sixter.xyz",
+    "http://admin.sixter.xyz",
     "http://127.0.0.1:5174",
     "http://localhost:5174",
+    "https://sahith.sixter.in",
+    "http://72.61.241.129:5000",
+     "http://ehoryzon.kongu.edu",
 ]
 
 

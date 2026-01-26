@@ -15,6 +15,15 @@ from .models import (
     MechRegistration,
     ThiraiRegistration,
     TalentiaRegistration,
+    Admin,
+    RisingRegistration,
+    StartupRegistration,
+    IPRRegistration,
+    BusinessRegistration,
+    ProductRegistration,
+    StocksRegistration,
+    BplanRegistration,
+    DetxRegistration,
 )
 
 from .serial import (
@@ -28,6 +37,16 @@ from .serial import (
     MechRegistrationSerializer,
     ThiraiRegistrationSerializer,
     TalentiaRegistrationSerializer,
+    AdminSerializer,
+    RisingRegistrationSerializer,
+    StartupRegistrationSerializer,
+    IPRRegistrationSerializer,
+    BusinessRegistrationSerializer,
+    ProductRegistrationSerializer,
+    StocksRegistrationSerializer,
+    BplanRegistrationSerializer,
+    DetxRegistrationSerializer,
+
 )
 
 
@@ -35,10 +54,7 @@ from .serial import (
 # Helper: parse JSON members
 # -----------------------------
 def parse_members(data, key="members"):
-    """
-    Handles members from FormData:
-    members comes as a string JSON -> convert to list
-    """
+     
     raw = data.get(key, "[]")
 
     # if it comes as list like ['[...]'] unwrap it
@@ -56,6 +72,7 @@ def parse_members(data, key="members"):
 # -----------------------------
 # PITCH (uses members)
 # -----------------------------
+
 @api_view(["GET", "POST"])
 @parser_classes([MultiPartParser, FormParser])
 def pitch_register(request):
@@ -67,9 +84,7 @@ def pitch_register(request):
 
     # POST
     data = request.data.copy()
-
-    if not parse_members(data, key="members"):
-        return Response({"members": ["Value must be valid JSON."]}, status=status.HTTP_400_BAD_REQUEST)
+    
 
     serializer = PitchRegistrationSerializer(data=data, context={"request": request})
     if serializer.is_valid():
@@ -268,3 +283,194 @@ def talentia_register(request):
         return Response({"message": "Registered successfully"}, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+ 
+@api_view(["GET", "POST"])
+@parser_classes([MultiPartParser, FormParser])
+def rising_register(request):
+
+    if request.method == "GET":
+        qs = RisingRegistration.objects.all().order_by("-created_at")
+        serializer = RisingRegistrationSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    data = request.data.copy()
+    serializer = RisingRegistrationSerializer(data=data, context={"request": request})
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Registered successfully"}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET", "POST"])
+@parser_classes([MultiPartParser, FormParser])
+def startup_register(request):
+
+    if request.method == "GET":
+        qs = StartupRegistration.objects.all().order_by("-created_at")
+        serializer = StartupRegistrationSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    data = request.data.copy()
+    serializer = StartupRegistrationSerializer(data=data, context={"request": request})
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Registered successfully"}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET", "POST"])
+@parser_classes([MultiPartParser, FormParser])
+def ipr_register(request):
+
+    if request.method == "GET":
+        qs = IPRRegistration.objects.all().order_by("-created_at")
+        serializer = IPRRegistrationSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    data = request.data.copy()
+    serializer = IPRRegistrationSerializer(data=data, context={"request": request})
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Registered successfully"}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET", "POST"])
+@parser_classes([MultiPartParser, FormParser])
+def business_register(request):
+
+    if request.method == "GET":
+        qs = BusinessRegistration.objects.all().order_by("-created_at")
+        serializer = BusinessRegistrationSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    data = request.data.copy()
+    serializer = BusinessRegistrationSerializer(data=data, context={"request": request})
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Registered successfully"}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET", "POST"])
+@parser_classes([MultiPartParser, FormParser])
+def product_register(request):
+
+    if request.method == "GET":
+        qs = ProductRegistration.objects.all().order_by("-created_at")
+        serializer = ProductRegistrationSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    data = request.data.copy()
+    serializer = ProductRegistrationSerializer(data=data, context={"request": request})
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Registered successfully"}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET", "POST"])
+@parser_classes([MultiPartParser, FormParser])
+def stocks_register(request):
+
+    if request.method == "GET":
+        qs = StocksRegistration.objects.all().order_by("-created_at")
+        serializer = StocksRegistrationSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    data = request.data.copy()
+    serializer = StocksRegistrationSerializer(data=data, context={"request": request})
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Registered successfully"}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET", "POST"])
+@parser_classes([MultiPartParser, FormParser])
+def bplan_register(request):
+
+    if request.method == "GET":
+        qs = BplanRegistration.objects.all().order_by("-created_at")
+        serializer = BplanRegistrationSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    data = request.data.copy()
+    serializer = BplanRegistrationSerializer(data=data, context={"request": request})
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Registered successfully"}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET", "POST"])
+@parser_classes([MultiPartParser, FormParser])
+def detx_register(request):
+
+    if request.method == "GET":
+        qs = DetxRegistration.objects.all().order_by("-created_at")
+        serializer = DetxRegistrationSerializer(qs, many=True, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    data = request.data.copy()
+    serializer = DetxRegistrationSerializer(data=data, context={"request": request})
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Registered successfully"}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+@api_view(["POST", "GET"])
+def admin_login(request):
+    
+    if request.method == "POST":
+        username = request.data.get("username")
+        password = request.data.get("password")
+    else:  # GET
+        username = request.query_params.get("username")
+        password = request.query_params.get("password")
+
+    if not username or not password:
+        return Response(
+            {"success": False, "message": "Username and password required"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    try:
+        admin = Admin.objects.get(username=username, password=password)
+
+        request.session["adname"] = admin.username
+        request.session["category"] = admin.category
+
+        return Response(
+            {
+                "success": True,
+                "page": admin.category,           
+                "message": "Login successful!",
+                "data": AdminSerializer(admin).data,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+    except Admin.DoesNotExist:
+        return Response(
+            {"success": False, "message": "Invalid username or password"},
+            status=status.HTTP_401_UNAUTHORIZED,
+        )

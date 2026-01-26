@@ -10,6 +10,15 @@ from .models import (
     MechRegistration,
     ThiraiRegistration,
     TalentiaRegistration,
+    Admin,
+    RisingRegistration,
+    StartupRegistration,
+    IPRRegistration,
+    BusinessRegistration,
+    ProductRegistration,
+    StocksRegistration,
+    BplanRegistration,
+    DetxRegistration,
 )
 # Register your models here.
 
@@ -23,3 +32,12 @@ admin.site.register(MasterRegistration)
 admin.site.register(ThiraiRegistration)
 admin.site.register(MechRegistration)
 admin.site.register(TalentiaRegistration)
+admin.site.register(Admin)
+admin.site.register(RisingRegistration)
+admin.site.register(StartupRegistration)
+admin.site.register(IPRRegistration)
+admin.site.register(BusinessRegistration)
+admin.site.register(ProductRegistration)
+admin.site.register(StocksRegistration)
+admin.site.register(BplanRegistration)
+admin.site.register(DetxRegistration)

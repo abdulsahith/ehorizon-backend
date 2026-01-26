@@ -34,6 +34,29 @@ def thirai_upload_path(instance, filename):
 def talentia_upload_path(instance, filename):
     return f"talentia/{instance.team_name}/{filename}"
 
+def rising_upload_path(instance, filename):
+    return f"rising/{instance.lead_name}/{filename}"
+
+def startup_upload_path(instance, filename):
+    return f"startup/{instance.lead_name}/{filename}"
+
+def ipr_upload_path(instance, filename):
+    return f"ipr/{instance.lead_name}/{filename}"
+
+def business_upload_path(instance, filename):
+    return f"business/{instance.lead_name}/{filename}"
+
+def product_upload_path(instance, filename):
+    return f"product/{instance.lead_name}/{filename}"
+def stocks_upload_path(instance, filename):
+    return f"stocks/{instance.lead_name}/{filename}"
+
+def bplan_upload_path(instance, filename):
+    return f"bplan/{instance.lead_name}/{filename}"
+
+def detx_upload_path(instance, filename):
+    return f"detx/{instance.lead_name}/{filename}"
+
 
 class PitchRegistration(models.Model):
     team_name = models.CharField(max_length=120)
@@ -58,7 +81,8 @@ class GameathonRegistration(models.Model):
     lead_year = models.CharField(max_length=10)
     lead_mobile = models.CharField(max_length=20)
     lead_email = models.EmailField()
-
+    
+    lead_college_name = models.CharField(max_length=200, blank=True, null=True)
     # Members list (JSON)
     team_members = models.JSONField(default=list)   # [{name,roll,dept,year,mobile,email}, ...]
 
@@ -82,6 +106,7 @@ class WebifyRegistration(models.Model):
     lead_year = models.CharField(max_length=10)
     lead_mobile = models.CharField(max_length=20)
     lead_email = models.EmailField()
+    lead_college_name = models.CharField(max_length=200, blank=True, null=True)
 
     # Members list (JSON)
     team_members = models.JSONField(default=list)   # [{name,roll,dept,year,mobile,email}, ...]
@@ -106,6 +131,7 @@ class MechRegistration(models.Model):
     lead_year = models.CharField(max_length=10)
     lead_mobile = models.CharField(max_length=20)
     lead_email = models.EmailField()
+    lead_college_name = models.CharField(max_length=200, blank=True, null=True)
 
     
     team_members = models.JSONField(default=list)   
@@ -130,6 +156,7 @@ class BuildRegistration(models.Model):
     lead_year = models.CharField(max_length=10)
     lead_mobile = models.CharField(max_length=20)
     lead_email = models.EmailField()
+    lead_college_name = models.CharField(max_length=200, blank=True, null=True)
 
     
     team_members = models.JSONField(default=list)   
@@ -153,6 +180,7 @@ class ElectricRegistration(models.Model):
     lead_year = models.CharField(max_length=10)
     lead_mobile = models.CharField(max_length=20)
     lead_email = models.EmailField()
+    lead_college_name = models.CharField(max_length=200, blank=True, null=True)
 
     
     team_members = models.JSONField(default=list)   
@@ -176,6 +204,7 @@ class MasterRegistration(models.Model):
     lead_year = models.CharField(max_length=10)
     lead_mobile = models.CharField(max_length=20)
     lead_email = models.EmailField()
+    lead_college_name = models.CharField(max_length=200, blank=True, null=True)
 
     
     team_members = models.JSONField(default=list)   
@@ -199,6 +228,7 @@ class IPLRegistration(models.Model):
     lead_year = models.CharField(max_length=10)
     lead_mobile = models.CharField(max_length=20)
     lead_email = models.EmailField()
+    lead_college_name = models.CharField(max_length=200, blank=True, null=True)
 
     
     team_members = models.JSONField(default=list)   
@@ -222,6 +252,7 @@ class ThiraiRegistration(models.Model):
     lead_year = models.CharField(max_length=10)
     lead_mobile = models.CharField(max_length=20)
     lead_email = models.EmailField()
+    lead_college_name = models.CharField(max_length=200, blank=True, null=True)
 
     
     team_members = models.JSONField(default=list)   
@@ -245,6 +276,7 @@ class TalentiaRegistration(models.Model):
     lead_year = models.CharField(max_length=10)
     lead_mobile = models.CharField(max_length=20)
     lead_email = models.EmailField()
+    lead_college_name = models.CharField(max_length=200, blank=True, null=True)
 
     
     team_members = models.JSONField(default=list)   
@@ -256,3 +288,210 @@ class TalentiaRegistration(models.Model):
 
     def __str__(self):
         return f"{self.team_name} ({self.event_name})"
+    
+
+
+class Admin(models.Model):
+    username=models.CharField(max_length=100)
+    password=models.CharField(max_length=100)
+    category=models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.username}"
+
+
+
+    
+class RisingRegistration(models.Model):
+     
+    event_name = models.CharField(max_length=50, default="rising")   
+
+    # Team lead fields (simple)
+    lead_name = models.CharField(max_length=100)
+    lead_roll = models.CharField(max_length=50)
+    lead_department = models.CharField(max_length=50)
+    lead_year = models.CharField(max_length=10)
+    lead_mobile = models.CharField(max_length=20)
+    lead_email = models.EmailField()
+    college_name = models.CharField(max_length=200, blank=True, null=True)
+    
+       
+
+     
+    payment_screenshots = models.FileField(upload_to=rising_upload_path, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.lead_name} ({self.event_name})"
+
+
+
+    
+class StartupRegistration(models.Model):
+     
+    event_name = models.CharField(max_length=50, default="startup")   
+
+    # Team lead fields (simple)
+    lead_name = models.CharField(max_length=100)
+    lead_roll = models.CharField(max_length=50)
+    lead_department = models.CharField(max_length=50)
+    lead_year = models.CharField(max_length=10)
+    lead_mobile = models.CharField(max_length=20)
+    lead_email = models.EmailField()
+    college_name = models.CharField(max_length=200, blank=True, null=True)
+
+        
+
+
+    payment_screenshots = models.FileField(upload_to=startup_upload_path, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.lead_name} ({self.event_name})"
+
+
+    
+class IPRRegistration(models.Model):
+     
+    event_name = models.CharField(max_length=50, default="ipr")   
+
+    # Team lead fields (simple)
+    lead_name = models.CharField(max_length=100)
+    lead_roll = models.CharField(max_length=50)
+    lead_department = models.CharField(max_length=50)
+    lead_year = models.CharField(max_length=10)
+    lead_mobile = models.CharField(max_length=20)
+    lead_email = models.EmailField()
+    college_name = models.CharField(max_length=200, blank=True, null=True)
+    
+   
+
+     
+    payment_screenshots = models.FileField(upload_to=ipr_upload_path, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.lead_name} ({self.event_name})"
+
+    
+class BusinessRegistration(models.Model):
+     
+    event_name = models.CharField(max_length=50, default="business")   
+
+    # Team lead fields (simple)
+    lead_name = models.CharField(max_length=100)
+    lead_roll = models.CharField(max_length=50)
+    lead_department = models.CharField(max_length=50)
+    lead_year = models.CharField(max_length=10)
+    lead_mobile = models.CharField(max_length=20)
+    lead_email = models.EmailField()
+    college_name = models.CharField(max_length=200, blank=True, null=True)
+    
+     
+
+     
+    payment_screenshots = models.FileField(upload_to=business_upload_path, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.lead_name} ({self.event_name})"
+
+    
+class ProductRegistration(models.Model):
+     
+    event_name = models.CharField(max_length=50, default="product")   
+
+    # Team lead fields (simple)
+    lead_name = models.CharField(max_length=100)
+    lead_roll = models.CharField(max_length=50)
+    lead_department = models.CharField(max_length=50)
+    lead_year = models.CharField(max_length=10)
+    lead_mobile = models.CharField(max_length=20)
+    lead_email = models.EmailField()
+    college_name = models.CharField(max_length=200, blank=True, null=True)
+    
+       
+
+     
+    payment_screenshots = models.FileField(upload_to=product_upload_path, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.lead_name} ({self.event_name})"
+
+    
+class StocksRegistration(models.Model):
+     
+    event_name = models.CharField(max_length=50, default="stocks")   
+
+     
+    lead_name = models.CharField(max_length=100)
+    lead_roll = models.CharField(max_length=50)
+    lead_department = models.CharField(max_length=50)
+    lead_year = models.CharField(max_length=10)
+    lead_mobile = models.CharField(max_length=20)
+    lead_email = models.EmailField()
+    college_name = models.CharField(max_length=200, blank=True, null=True)
+    
+      
+
+     
+    payment_screenshots = models.FileField(upload_to=stocks_upload_path, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.lead_name} ({self.event_name})"
+
+    
+class BplanRegistration(models.Model):
+     
+    event_name = models.CharField(max_length=50, default="bplan")   
+
+    
+    lead_name = models.CharField(max_length=100)
+    lead_roll = models.CharField(max_length=50)
+    lead_department = models.CharField(max_length=50)
+    lead_year = models.CharField(max_length=10)
+    lead_mobile = models.CharField(max_length=20)
+    lead_email = models.EmailField()
+    college_name = models.CharField(max_length=200, blank=True, null=True)
+    
+       
+
+     
+    payment_screenshots = models.FileField(upload_to=bplan_upload_path, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.lead_name} ({self.event_name})"
+
+    
+class DetxRegistration(models.Model):
+     
+    event_name = models.CharField(max_length=50, default="detx")   
+
+    # Team lead fields (simple)
+    lead_name = models.CharField(max_length=100)
+    lead_roll = models.CharField(max_length=50)
+    lead_department = models.CharField(max_length=50)
+    lead_year = models.CharField(max_length=10)
+    lead_mobile = models.CharField(max_length=20)
+    lead_email = models.EmailField()
+    college_name = models.CharField(max_length=200, blank=True, null=True)
+    
+     
+
+     
+    payment_screenshots = models.FileField(upload_to=detx_upload_path, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.lead_name} ({self.event_name})"
