@@ -39,6 +39,7 @@ from app.views import (
     stocks_register,
     bplan_register,
     detx_register,
+    pitch_send_mail,
 )
 
 from django.conf.urls.static import static
@@ -46,6 +47,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("pitch/register/", pitch_register),
+    path("pitch/send-mail/", pitch_send_mail), 
     path("gameathon/register/", gameathon_register),
     path("buildscape/register/", buildscape_register),
     path("webify/register/", webify_register),
@@ -56,6 +58,7 @@ urlpatterns = [
     path("thirai-trivia/register/", thirai_register),
     path("adminlogin/",admin_login),
     path("talentia/register/", talentia_register),
+    #new events
     path("rising-capital-finance/register/",rising_register),
     path("startup-legal-ethical/register/",startup_register),
     path("ipr-ip-management/register/",ipr_register),

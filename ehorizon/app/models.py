@@ -58,16 +58,25 @@ def detx_upload_path(instance, filename):
     return f"detx/{instance.lead_name}/{filename}"
 
 
+# models.py
+from django.db import models
+
 class PitchRegistration(models.Model):
     team_name = models.CharField(max_length=120)
     trl_level = models.IntegerField()
     theme = models.CharField(max_length=50)
     abstract_pdf = models.FileField(upload_to=abstract_upload_path)
-    members = models.JSONField()   # list of members
+    members = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    # ✅ NEW: mail tracking
+    mail_sent = models.BooleanField(default=False)
+    mail_sent_at = models.DateTimeField(null=True, blank=True)
+    mail_sent_subject = models.CharField(max_length=200, blank=True, default="")
 
     def __str__(self):
         return self.team_name
+
 
 
 class GameathonRegistration(models.Model):

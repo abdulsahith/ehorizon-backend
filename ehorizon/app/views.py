@@ -3,6 +3,10 @@ from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
+from django.core.mail import send_mail
+from django.conf import settings
+from django.utils import timezone
+
 
 from .models import (
     PitchRegistration,
@@ -72,6 +76,56 @@ def parse_members(data, key="members"):
 # -----------------------------
 # PITCH (uses members)
 # -----------------------------
+
+@api_view(["POST"])
+def pitch_send_mail(request):
+    team_id = request.data.get("team_id")
+    subject = request.data.get("subject", "").strip()
+    content = request.data.get("content", "").strip()
+
+    if not team_id:
+        return Response({"error": "team_id is required"}, status=400)
+    if not subject:
+        return Response({"error": "subject is required"}, status=400)
+    if not content:
+        return Response({"error": "content is required"}, status=400)
+
+    try:
+        team = PitchRegistration.objects.get(id=team_id)
+    except PitchRegistration.DoesNotExist:
+        return Response({"error": "Team not found"}, status=404)
+
+    members = team.members or []
+    recipients = [m.get("email", "").strip() for m in members if m.get("email")]
+    recipients = [r for r in recipients if r]
+
+    if not recipients:
+        return Response({"error": "No valid member emails found"}, status=400)
+
+    # ✅ if you want to block re-sending uncomment this:
+    # if team.mail_sent:
+    #     return Response({"error": "Mail already sent for this team"}, status=400)
+
+    try:
+        send_mail(
+            subject=subject,
+            message=content,
+            from_email=None,   # uses DEFAULT_FROM_EMAIL
+            recipient_list=recipients,
+            fail_silently=False,
+        )
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+    team.mail_sent = True
+    team.mail_sent_at = timezone.now()
+    team.mail_sent_subject = subject
+    team.save(update_fields=["mail_sent", "mail_sent_at", "mail_sent_subject"])
+
+    return Response(
+        {"message": "Mail sent", "recipients": len(recipients)},
+        status=status.HTTP_200_OK
+    )
 
 @api_view(["GET", "POST"])
 @parser_classes([MultiPartParser, FormParser])
